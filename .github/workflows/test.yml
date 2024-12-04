@@ -32,8 +32,8 @@ jobs:
         env:
           WORKSPACE_PATH: /workspaces/test-driven-development/
         with:
-          imageName: ghcr.io/example/example-devcontainer
-          cacheFrom: ghcr.io/example/example-devcontainer
+          imageName: ghcr.io/yuyahy/test-driven-development
+          cacheFrom: ghcr.io/yuyahy/test-driven-development
           push: always
           runCmd: |
             cd workspaces
