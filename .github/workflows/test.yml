@@ -26,12 +26,17 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and test in devcontainer
         uses: devcontainers/ci@v0.3
+        env:
+          WORKSPACE_PATH: /workspaces/test-driven-development/
         with:
           imageName: ghcr.io/example/example-devcontainer
           cacheFrom: ghcr.io/example/example-devcontainer
           push: always
           runCmd: |
+            echo ${WORKSPACE_PATH}
+            cd ${WORKSPACE_PATH}
             ls -la
+            pwd
             go mod tidy
             go test ./... -v -coverprofile=coverage.out
 
