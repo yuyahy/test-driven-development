@@ -1,0 +1,40 @@
+name: Go Test Workflow
+
+on:
+  push:
+    branches:
+      - main  # mainブランチへのpush時に実行
+  pull_request:
+    branches:
+      - main  # mainブランチへのPR作成・更新時に実行
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Devcontainer CLI
+        run: npm install -g @devcontainers/cli
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and test in devcontainer
+        uses: devcontainers/ci@v0.3
+        env:
+          WORKSPACE_PATH: /workspaces/test-driven-development/
+        with:
+          imageName: ghcr.io/yuyahy/test-driven-development
+          cacheFrom: ghcr.io/yuyahy/test-driven-development
+          push: always
+          runCmd: |
+            cd workspaces
+            go mod tidy
+            go test ./... -v -coverprofile=coverage.out
+          env: |
+            WORKSPACE_PATH
+      - name: report coverage
+        uses: k1LoW/octocov-action@v0
