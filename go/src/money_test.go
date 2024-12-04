@@ -15,7 +15,7 @@ func TestMultiplication(t *testing.T) {
 	// five := &Dollar{5}
 	five := NewDollar(5)
 	five.Times(2)
-	if five.Amount != 10 {
+	if five.Amount != 1 {
 		t.Errorf("Expected 10, but got %d", five.Amount)
 	}
 }
