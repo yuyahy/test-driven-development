@@ -33,6 +33,7 @@ jobs:
           cacheFrom: ghcr.io/example/example-devcontainer
           push: always
           runCmd: |
+            cd workspaces
             ls -la
             pwd
             go mod tidy
