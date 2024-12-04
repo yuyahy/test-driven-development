@@ -43,13 +43,5 @@ jobs:
             go test ./... -v -coverprofile=coverage.out
           env: |
             WORKSPACE_PATH
-
-      # - name: Build and test in devcontainer
-      #   run: |
-      #     devcontainer build --workspace-folder $GITHUB_WORKSPACE --tag my-custom-devcontainer:latest
-      #     pwd
-      #     ls -la
-      #     docker run -d --name my-devcontainer my-custom-devcontainer:latest
-      #     devcontainer exec --workspace-folder $GITHUB_WORKSPACE "go mod tidy && go test ./... -v -coverprofile=coverage.out"
       - name: report coverage
         uses: k1LoW/octocov-action@v0
