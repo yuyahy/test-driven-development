@@ -39,6 +39,8 @@ jobs:
             pwd
             go mod tidy
             go test ./... -v -coverprofile=coverage.out
+          env: |
+            WORKSPACE_PATH
 
       # - name: Build and test in devcontainer
       #   run: |
