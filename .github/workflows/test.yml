@@ -21,6 +21,8 @@ jobs:
       - name: Build and test in devcontainer
         run: |
           devcontainer build --workspace-folder $GITHUB_WORKSPACE
+          pwd
+          ls -la
           devcontainer exec --workspace-folder $GITHUB_WORKSPACE "go mod tidy && go test ./... -v -coverprofile=coverage.out"
       - name: report coverage
         uses: k1LoW/octocov-action@v0
