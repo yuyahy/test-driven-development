@@ -1,0 +1,24 @@
+name: Go Test Workflow
+
+on:
+  push:
+    branches:
+      - main  # mainブランチへのpush時に実行
+  pull_request:
+    branches:
+      - main  # mainブランチへのPR作成・更新時に実行
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Devcontainer CLI
+        run: npm install -g @devcontainers/cli
+      - name: Build and test in devcontainer
+        run: |
+          devcontainer build --workspace-folder .
+          devcontainer exec --workspace-folder . "go mod tidy && go test ./... -v -coverprofile=coverage.out"
+      - name: report coverage
+        uses: k1LoW/octocov-action@v0
