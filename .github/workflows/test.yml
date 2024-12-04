@@ -31,6 +31,7 @@ jobs:
           cacheFrom: ghcr.io/example/example-devcontainer
           push: always
           runCmd: |
+            ls -la
             go mod tidy
             go test ./... -v -coverprofile=coverage.out
 
