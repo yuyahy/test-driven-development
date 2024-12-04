@@ -30,7 +30,9 @@ jobs:
           imageName: ghcr.io/example/example-devcontainer
           cacheFrom: ghcr.io/example/example-devcontainer
           push: always
-          runCmd: go mod tidy && go test ./... -v -coverprofile=coverage.out
+          runCmd: |
+            go mod tidy
+            go test ./... -v -coverprofile=coverage.out
 
       # - name: Build and test in devcontainer
       #   run: |
