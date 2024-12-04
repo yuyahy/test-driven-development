@@ -11,9 +11,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -37,8 +34,6 @@ jobs:
           push: always
           runCmd: |
             cd workspaces
-            ls -la
-            pwd
             go mod tidy
             go test ./... -v -coverprofile=coverage.out
           env: |
