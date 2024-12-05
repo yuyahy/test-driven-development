@@ -4,13 +4,12 @@ type Dollar struct {
 	Amount int
 }
 
-func NewDollar(amount int) *Dollar {
-	return &Dollar{
+func NewDollar(amount int) Dollar {
+	return Dollar{
 		Amount: amount,
 	}
 }
 
-// 構造体にメソッドを定義
-func (d *Dollar) Times(multiplier int) {
-	d.Amount *= multiplier
+func (d Dollar) Times(multiplier int) Dollar {
+	return NewDollar(d.Amount * multiplier)
 }
