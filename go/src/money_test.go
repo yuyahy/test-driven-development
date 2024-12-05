@@ -8,6 +8,10 @@ import "testing"
 // - Amountをprivateにする
 // - (完了)Dollarの副作用どうする？
 // - Moneyの丸め処理どうする？
+// - (完了)equals()
+// - hashCode()
+// - nullとの等価性比較
+// - 他オブジェクトとの等価性比較
 
 func TestMultiplication(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、
@@ -21,5 +25,14 @@ func TestMultiplication(t *testing.T) {
 	product = five.Times(3)
 	if product.Amount != 15 {
 		t.Errorf("Expected 15, but got %d", five.Amount)
+	}
+}
+
+func TestEquality(t *testing.T) {
+	if !NewDollar(5).Equals(NewDollar(5)) {
+		t.Errorf("Expected equal, but got not")
+	}
+	if NewDollar(5).Equals(NewDollar(6)) {
+		t.Errorf("Expected not equal, but got equal")
 	}
 }
