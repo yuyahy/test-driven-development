@@ -4,6 +4,3 @@
 # TODO
 - [ ]  Go言語で写経？
 - [x] CI/CD作る？
-
-
-https://zenn.dev/syumai/articles/c6q5un1j0msim0aj0ca0
