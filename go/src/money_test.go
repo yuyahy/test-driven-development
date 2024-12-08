@@ -18,6 +18,7 @@ import "testing"
 // - Timesの一般化
 // - ~~FrancとDollarを比較する~~
 // - 通貨の概念
+// - TestFrancMultiplicationを削除する？
 
 func TestMultiplication(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、

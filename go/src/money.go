@@ -12,3 +12,15 @@ type Money struct {
 func (m Money) Equals(other Money) bool {
 	return m.amount == other.amount && m.currency == other.currency
 }
+
+func NewDollar(amount int) Dollar {
+	return Dollar{
+		Money: Money{amount: amount, currency: "dollar"},
+	}
+}
+
+func NewFranc(amount int) Franc {
+	return Franc{
+		Money{amount: amount, currency: "franc"},
+	}
+}
