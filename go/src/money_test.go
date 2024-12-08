@@ -17,7 +17,7 @@ import "testing"
 // - ~~Equalsの一般化~~
 // - Timesの一般化
 // - ~~FrancとDollarを比較する~~
-// - 通貨の概念
+// - ~~通貨の概念~~
 // - TestFrancMultiplicationを削除する？
 
 func TestMultiplication(t *testing.T) {
@@ -58,5 +58,14 @@ func TestFrancMultiplication(t *testing.T) {
 	}
 	if !NewFranc(15).Equals(five.Times(3).Money) {
 		t.Errorf("Expected 15, but got %d", five.amount)
+	}
+}
+
+func TestCurrency(t *testing.T) {
+	if NewDollar(1).currency != "USD" {
+		t.Errorf("Expected 'USD', but got '%s'", NewDollar(1).currency)
+	}
+	if NewFranc(1).currency != "CHF" {
+		t.Errorf("Expected 'CHF', but got '%s'", NewDollar(1).currency)
 	}
 }
