@@ -16,7 +16,8 @@ import "testing"
 // - DollarとFrancの重複
 // - ~~Equalsの一般化~~
 // - Timesの一般化
-// - FrancとDollarを比較する
+// - ~~FrancとDollarを比較する~~
+// - 通貨の概念
 
 func TestMultiplication(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、
@@ -42,6 +43,9 @@ func TestEquality(t *testing.T) {
 		t.Errorf("Expected equal, but got not")
 	}
 	if NewFranc(5).Equals(NewFranc(6).Money) {
+		t.Errorf("Expected not equal, but got equal")
+	}
+	if NewFranc(5).Equals(NewDollar(5).Money) {
 		t.Errorf("Expected not equal, but got equal")
 	}
 }
