@@ -15,12 +15,12 @@ func (m Money) Equals(other Money) bool {
 
 func NewDollar(amount int) Dollar {
 	return Dollar{
-		Money: Money{amount: amount, currency: "dollar"},
+		Money: Money{amount: amount, currency: "USD"},
 	}
 }
 
 func NewFranc(amount int) Franc {
 	return Franc{
-		Money{amount: amount, currency: "franc"},
+		Money{amount: amount, currency: "CHF"},
 	}
 }
