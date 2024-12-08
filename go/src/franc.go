@@ -6,7 +6,7 @@ type Franc struct {
 
 func NewFranc(amount int) Franc {
 	return Franc{
-		Money{amount: amount},
+		Money{amount: amount, currency: "franc"},
 	}
 }
 
