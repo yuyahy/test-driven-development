@@ -17,6 +17,10 @@ func (m Money) Times(multiplier int) Money {
 	return Money{amount: m.amount * multiplier, currency: m.currency}
 }
 
+func (m Money) Plus(other Money) Expression {
+	return Money{amount: m.amount + other.amount, currency: m.currency}
+}
+
 func NewDollar(amount int) Money {
 	return Money{amount: amount, currency: "USD"}
 }

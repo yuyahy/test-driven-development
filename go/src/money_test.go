@@ -4,21 +4,11 @@ import "testing"
 
 // TODOリスト
 // - $5 + 10 CHF = $10（レートが2:1の場合）
-// - ~~$5 * 2 = $10~~
-// - ~~Amountをprivateにする~~
-// - ~~Dollarの副作用どうする？~~
+// - $5 + $5 = $10
 // - Moneyの丸め処理どうする？
-// - ~~equals()~~
 // - hashCode()
 // - nullとの等価性比較
 // - 他オブジェクトとの等価性比較
-// - ~~5CHF * 2 = 10CHF~~
-// - ~~DollarとFrancの重複~~
-// - ~~Equalsの一般化~~
-// - ~~Timesの一般化~~
-// - ~~FrancとDollarを比較する~~
-// - ~~通貨の概念~~
-// - ~~TestFrancMultiplicationを削除する？~~
 
 func TestMultiplication(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、
@@ -51,5 +41,15 @@ func TestCurrency(t *testing.T) {
 	}
 	if NewFranc(1).currency != "CHF" {
 		t.Errorf("Expected 'CHF', but got '%s'", NewDollar(1).currency)
+	}
+}
+
+func TestSimpleAddition(t *testing.T) {
+	five := NewDollar(5)
+	sum := five.Plus(five)
+	bank := NewBank()
+	reduced := bank.Reduce(sum, "USD")
+	if reduced != NewDollar(10) {
+		t.Errorf("Expected equal, but got not")
 	}
 }
