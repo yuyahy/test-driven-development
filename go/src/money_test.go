@@ -5,6 +5,8 @@ import "testing"
 // TODOリスト
 // - $5 + 10 CHF = $10（レートが2:1の場合）
 // - $5 + $5 = $10
+// - $5 + $5がMoneyを返す
+// - ~~Bank.reduce(Money)~~
 // - Moneyの丸め処理どうする？
 // - hashCode()
 // - nullとの等価性比較
@@ -51,5 +53,34 @@ func TestSimpleAddition(t *testing.T) {
 	reduced := bank.Reduce(sum, "USD")
 	if reduced != NewDollar(10) {
 		t.Errorf("Expected equal, but got not")
+	}
+}
+
+func TestPlusReturnsSum(t *testing.T) {
+	five := NewDollar(5)
+	result := five.Plus(five)
+	sum := result.(Sum)
+	if sum.augend != five {
+		t.Errorf("Expected equal, but got not")
+	}
+	if sum.addend != five {
+		t.Errorf("Expected equal, but got not")
+	}
+}
+
+func TestReduceSum(t *testing.T) {
+	sum := NewSum(NewDollar(3), NewDollar(4))
+	bank := NewBank()
+	result := bank.Reduce(sum, "USD")
+	if result != NewDollar(7) {
+		t.Errorf("Expected 7, but got %d", result.amount)
+	}
+}
+
+func TestReduceMoney(t *testing.T) {
+	bank := NewBank()
+	result := bank.Reduce(NewDollar(1), "USD")
+	if result != NewDollar(1) {
+		t.Errorf("Expected 1, but got %d", result.amount)
 	}
 }
