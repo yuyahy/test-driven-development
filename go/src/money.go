@@ -17,14 +17,10 @@ func (m Money) Times(multiplier int) Money {
 	return Money{amount: m.amount * multiplier, currency: m.currency}
 }
 
-func NewDollar(amount int) Dollar {
-	return Dollar{
-		Money: Money{amount: amount, currency: "USD"},
-	}
+func NewDollar(amount int) Money {
+	return Money{amount: amount, currency: "USD"}
 }
 
-func NewFranc(amount int) Franc {
-	return Franc{
-		Money{amount: amount, currency: "CHF"},
-	}
+func NewFranc(amount int) Money {
+	return Money{amount: amount, currency: "CHF"}
 }

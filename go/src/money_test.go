@@ -13,12 +13,12 @@ import "testing"
 // - nullとの等価性比較
 // - 他オブジェクトとの等価性比較
 // - ~~5CHF * 2 = 10CHF~~
-// - DollarとFrancの重複
+// - ~~DollarとFrancの重複~~
 // - ~~Equalsの一般化~~
 // - ~~Timesの一般化~~
 // - ~~FrancとDollarを比較する~~
 // - ~~通貨の概念~~
-// - TestFrancMultiplicationを削除する？
+// - ~~TestFrancMultiplicationを削除する？~~
 
 func TestMultiplication(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、
@@ -34,30 +34,14 @@ func TestMultiplication(t *testing.T) {
 }
 
 func TestEquality(t *testing.T) {
-	if !NewDollar(5).Equals(NewDollar(5).Money) {
+	if !NewDollar(5).Equals(NewDollar(5)) {
 		t.Errorf("Expected equal, but got not")
 	}
-	if NewDollar(5).Equals(NewDollar(6).Money) {
+	if NewDollar(5).Equals(NewDollar(6)) {
 		t.Errorf("Expected not equal, but got equal")
 	}
-	if !NewFranc(5).Equals(NewFranc(5).Money) {
-		t.Errorf("Expected equal, but got not")
-	}
-	if NewFranc(5).Equals(NewFranc(6).Money) {
+	if NewFranc(5).Equals(NewDollar(5)) {
 		t.Errorf("Expected not equal, but got equal")
-	}
-	if NewFranc(5).Equals(NewDollar(5).Money) {
-		t.Errorf("Expected not equal, but got equal")
-	}
-}
-
-func TestFrancMultiplication(t *testing.T) {
-	five := NewFranc(5)
-	if !NewFranc(10).Equals(five.Times(2)) {
-		t.Errorf("Expected 10, but got %d", five.Times(2).amount)
-	}
-	if !NewFranc(15).Equals(five.Times(3)) {
-		t.Errorf("Expected 15, but got %d", five.Times(3).amount)
 	}
 }
 
