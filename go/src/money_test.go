@@ -15,7 +15,7 @@ import "testing"
 // - ~~5CHF * 2 = 10CHF~~
 // - DollarとFrancの重複
 // - ~~Equalsの一般化~~
-// - Timesの一般化
+// - ~~Timesの一般化~~
 // - ~~FrancとDollarを比較する~~
 // - ~~通貨の概念~~
 // - TestFrancMultiplicationを削除する？
@@ -25,11 +25,11 @@ func TestMultiplication(t *testing.T) {
 	// 念の為コンストラクタ関数で実装
 	// five := &Dollar{5}
 	five := NewDollar(5)
-	if !NewDollar(10).Equals(five.Times(2).Money) {
-		t.Errorf("Expected 10, but got %d", five.amount)
+	if !NewDollar(10).Equals(five.Times(2)) {
+		t.Errorf("Expected 10, but got %d", five.Times(2).amount)
 	}
-	if !NewDollar(15).Equals(five.Times(3).Money) {
-		t.Errorf("Expected 15, but got %d", five.amount)
+	if !NewDollar(15).Equals(five.Times(3)) {
+		t.Errorf("Expected 15, but got %d", five.Times(3).amount)
 	}
 }
 
@@ -53,11 +53,11 @@ func TestEquality(t *testing.T) {
 
 func TestFrancMultiplication(t *testing.T) {
 	five := NewFranc(5)
-	if !NewFranc(10).Equals(five.Times(2).Money) {
-		t.Errorf("Expected 10, but got %d", five.amount)
+	if !NewFranc(10).Equals(five.Times(2)) {
+		t.Errorf("Expected 10, but got %d", five.Times(2).amount)
 	}
-	if !NewFranc(15).Equals(five.Times(3).Money) {
-		t.Errorf("Expected 15, but got %d", five.amount)
+	if !NewFranc(15).Equals(five.Times(3)) {
+		t.Errorf("Expected 15, but got %d", five.Times(3).amount)
 	}
 }
 
