@@ -83,5 +83,4 @@ func TestReduceMoney(t *testing.T) {
 	if result != NewDollar(1) {
 		t.Errorf("Expected 1, but got %d", result.amount)
 	}
-
 }

@@ -12,5 +12,4 @@ func NewSum(augend Money, addend Money) Sum {
 func (s Sum) Reduce(to string) Money {
 	amount := s.augend.amount + s.addend.amount
 	return Money{amount: amount, currency: to}
-
 }
