@@ -4,7 +4,7 @@ import "testing"
 
 // TODOリスト
 // - $5 + 10 CHF = $10（レートが2:1の場合）
-// - $5 + $5 = $10
+// - ~~$5 + $5 = $10~~
 // - $5 + $5がMoneyを返す
 // - ~~Bank.reduce(Money)~~
 // - Moneyの丸め処理どうする？
@@ -82,5 +82,20 @@ func TestReduceMoney(t *testing.T) {
 	result := bank.Reduce(NewDollar(1), "USD")
 	if result != NewDollar(1) {
 		t.Errorf("Expected 1, but got %d", result.amount)
+	}
+}
+
+func TestReduceMoneyDifferentCurrency(t *testing.T) {
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+	result := bank.Reduce(NewFranc(2), "USD")
+	if result != NewDollar(1) {
+		t.Errorf("Expected equal, but got not")
+	}
+}
+
+func TestIdentityRate(t *testing.T) {
+	if NewBank().Rate("USD", "USD") != 1 {
+		t.Errorf("Expected equal, but got not")
 	}
 }
