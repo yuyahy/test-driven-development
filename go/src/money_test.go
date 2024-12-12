@@ -3,12 +3,12 @@ package money
 import "testing"
 
 // TODOリスト
-// - $5 + 10 CHF = $10（レートが2:1の場合）
+// - ~~$5 + 10 CHF = $10（レートが2:1の場合）~~
 // - ~~$5 + $5 = $10~~
 // - $5 + $5がMoneyを返す
 // - ~~Bank.reduce(Money)~~
-// - Sum.plus
-// - Expression.times
+// - ~~Sum.plus~~
+// - ~~Expression.times~~
 // - Moneyの丸め処理どうする？
 // - hashCode()
 // - nullとの等価性比較
@@ -111,5 +111,30 @@ func TestMixedAddition(t *testing.T) {
 	result := bank.Reduce(fiveBucks.Plus(tenFrancs), "USD")
 	if result != NewDollar(10) {
 		t.Errorf("Expected 10 dollar, but got %d", result.amount)
+	}
+}
+
+func TestSumPlusMoney(t *testing.T) {
+	fiveBucks := NewDollar(5)
+	tenFrancs := NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+
+	sum := NewSum(fiveBucks, tenFrancs).Plus(fiveBucks)
+	result := bank.Reduce(sum, "USD")
+	if result != NewDollar(15) {
+		t.Errorf("Expected 15 dollar, but got %d", result.amount)
+	}
+}
+
+func TestSumTimes(t *testing.T) {
+	fiveBucks := NewDollar(5)
+	tenFrancs := NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+	sum := NewSum(fiveBucks, tenFrancs).Times(2)
+	result := bank.Reduce(sum, "USD")
+	if result != NewDollar(20) {
+		t.Errorf("Expected 20 dollar, but got %d", result.amount)
 	}
 }
