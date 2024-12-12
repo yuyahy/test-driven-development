@@ -7,6 +7,8 @@ import "testing"
 // - ~~$5 + $5 = $10~~
 // - $5 + $5がMoneyを返す
 // - ~~Bank.reduce(Money)~~
+// - Sum.plus
+// - Expression.times
 // - Moneyの丸め処理どうする？
 // - hashCode()
 // - nullとの等価性比較
@@ -18,10 +20,10 @@ func TestMultiplication(t *testing.T) {
 	// five := &Dollar{5}
 	five := NewDollar(5)
 	if !NewDollar(10).Equals(five.Times(2)) {
-		t.Errorf("Expected 10, but got %d", five.Times(2).amount)
+		t.Errorf("Expected 10, but got %d", five.Times(2).(Money).amount)
 	}
 	if !NewDollar(15).Equals(five.Times(3)) {
-		t.Errorf("Expected 15, but got %d", five.Times(3).amount)
+		t.Errorf("Expected 15, but got %d", five.Times(3).(Money).amount)
 	}
 }
 
@@ -97,5 +99,17 @@ func TestReduceMoneyDifferentCurrency(t *testing.T) {
 func TestIdentityRate(t *testing.T) {
 	if NewBank().Rate("USD", "USD") != 1 {
 		t.Errorf("Expected equal, but got not")
+	}
+}
+
+func TestMixedAddition(t *testing.T) {
+	fiveBucks := NewDollar(5)
+	tenFrancs := NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+
+	result := bank.Reduce(fiveBucks.Plus(tenFrancs), "USD")
+	if result != NewDollar(10) {
+		t.Errorf("Expected 10 dollar, but got %d", result.amount)
 	}
 }

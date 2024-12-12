@@ -9,15 +9,16 @@ type Money struct {
 // Goのstructは"=="演算子で各フィールドを比較可能だが、サンプルでも使用されているJavaでは
 // "=="とequals()は異なる意味を持つ場合があるので(e.g. stringでは前者は参照先の比較、後者は値の比較)、
 // 今回はEquals()で等価性を比較するコードにしている
-func (m Money) Equals(other Money) bool {
-	return m.amount == other.amount && m.currency == other.currency
+func (m Money) Equals(other Expression) bool {
+	got := other.(Money)
+	return m.amount == got.amount && m.currency == got.currency
 }
 
-func (m Money) Times(multiplier int) Money {
+func (m Money) Times(multiplier int) Expression {
 	return Money{amount: m.amount * multiplier, currency: m.currency}
 }
 
-func (m Money) Plus(addend Money) Expression {
+func (m Money) Plus(addend Expression) Expression {
 	return Sum{augend: m, addend: addend}
 }
 
