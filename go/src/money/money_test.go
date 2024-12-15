@@ -14,7 +14,9 @@ import "testing"
 // - nullとの等価性比較
 // - 他オブジェクトとの等価性比較
 
-func TestMultiplication(t *testing.T) {
+// Goのテストは日本語で記述することもできる
+// ただし、先頭は"Test"である必要がある
+func Test掛け算(t *testing.T) {
 	// 今後の章でコンストラクタをカスタムする可能性があるので、リテラル構文ではなく、
 	// 念の為コンストラクタ関数で実装
 	// five := &Dollar{5}
