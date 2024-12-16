@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 履歴全体を取得
+      - name: Checkout PR branch
+        run: |
+          git fetch origin ${{ github.head_ref }}:$GITHUB_HEAD_REF
+          git checkout $GITHUB_HEAD_REF
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
