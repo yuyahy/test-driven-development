@@ -34,6 +34,7 @@ class TestCaseTest(TestCase):
         assert(test.log=="setUp testMethod tearDown ")
 
 def main():
+    #
     TestCaseTest("testTemplateMethod").run()
 
 if __name__ == "__main__":
