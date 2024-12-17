@@ -3,12 +3,16 @@ class TestResult:
 
     def __init__(self):
         self.runCount = 0
+        self.errorCount = 0
 
     def testStarted(self):
         self.runCount = self.runCount + 1
 
+    def testFailed(self):
+        self.errorCount = self.errorCount + 1
+
     def summary(self):
-        return "%d run, 0 failed" % self.runCount
+        return "%d run, %d failed" % (self.runCount, self.errorCount)
 
 
 class TestCase:
@@ -28,9 +32,12 @@ class TestCase:
         result.testStarted()
         # fixture的な準備処理
         self.setUp()
-        # コンストラクタで指定されたメソッド名を取得 & 実行
-        method = getattr(self, self.name)
-        method()
+        try:
+            # コンストラクタで指定されたメソッド名を取得 & 実行
+            method = getattr(self, self.name)
+            method()
+        except:
+            result.testFailed()
         # 後始末処理
         self.tearDown()
         return result
@@ -68,11 +75,18 @@ class TestCaseTest(TestCase):
         result = test.run()
         assert result.summary() == "1 run, 1 failed"
 
+    def testFailedResultFormatting(self):
+        result = TestResult()
+        result.testStarted()
+        result.testFailed()
+        assert result.summary() == "1 run, 1 failed"
+
 
 def main():
-    TestCaseTest("testTemplateMethod").run()
-    TestCaseTest("testResult").run()
-    # TestCaseTest("testFailedResult").run()
+    print(TestCaseTest("testTemplateMethod").run().summary())
+    print(TestCaseTest("testResult").run().summary())
+    print(TestCaseTest("testFailedResult").run().summary())
+    print(TestCaseTest("testFailedResultFormatting").run().summary())
 
 
 if __name__ == "__main__":
