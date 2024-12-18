@@ -27,7 +27,7 @@ class TestCase:
     def tearDown(self):
         pass
 
-    def run(self,result):
+    def run(self, result):
         result.testStarted()
         # fixture的な準備処理
         self.setUp()
@@ -39,6 +39,7 @@ class TestCase:
             result.testFailed()
         # 後始末処理
         self.tearDown()
+
 
 class WasRun(TestCase):
     def setUp(self):
@@ -53,22 +54,24 @@ class WasRun(TestCase):
     def tearDown(self):
         self.log = self.log + "tearDown "
 
+
 class TestSuite:
     def __init__(self):
-        self.tests=[]
+        self.tests = []
 
-    def add(self,test):
+    def add(self, test):
         self.tests.append(test)
 
-    def run(self,result):
+    def run(self, result):
         for test in self.tests:
             test.run(result)
+
 
 class TestCaseTest(TestCase):
     """テストケースのテストを実行するクラス"""
 
     def setUp(self):
-        self.result=TestResult()
+        self.result = TestResult()
 
     def testTemplateMethod(self):
         test = WasRun("testMethod")
@@ -91,15 +94,15 @@ class TestCaseTest(TestCase):
         assert self.result.summary() == "1 run, 1 failed"
 
     def testSuite(self):
-        suite=TestSuite()
+        suite = TestSuite()
         suite.add(WasRun("testMethod"))
         suite.add(WasRun("testBrokenMethod"))
         suite.run(self.result)
-        assert(self.result.summary()=="2 run, 1 failed")
+        assert self.result.summary() == "2 run, 1 failed"
 
 
 def main():
-    suite=TestSuite()
+    suite = TestSuite()
     suite.add(TestCaseTest("testTemplateMethod"))
     suite.add(TestCaseTest("testResult"))
     suite.add(TestCaseTest("testFailedResult"))
@@ -108,6 +111,7 @@ def main():
     result = TestResult()
     suite.run(result)
     print(result.summary())
+
 
 if __name__ == "__main__":
     main()
